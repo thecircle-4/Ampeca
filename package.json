@@ -1,0 +1,25 @@
+{
+  "name": "Ampeca",
+  "version": "1.0.0",
+  "description": "Music app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "server":"nodemon server/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/firasjedidi/Ampeca.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/firasjedidi/Ampeca/issues"
+  },
+  "homepage": "https://github.com/firasjedidi/Ampeca#readme",
+  "dependencies": {
+    "express": "^4.17.2",
+    "nodemon": "^2.0.15"
+  }
+}
