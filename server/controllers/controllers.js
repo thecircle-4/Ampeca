@@ -1,3 +1,4 @@
+
 var db = require("../DataBase/Connection.js");
 const { signupValidation, loginValidation } = require("./validation");
 const { validationResult } = require("express-validator");
@@ -43,10 +44,7 @@ const register =
               );
             }
           });
-        }
-      }
-    );
-  });
+
 
 const login =
   (loginValidation,
