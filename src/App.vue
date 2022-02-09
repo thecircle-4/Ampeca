@@ -1,57 +1,62 @@
 <template>
   <div id="app">
-<ul>
-  <li><a><input type="text"></a></li>
-  <li><a>Profile</a></li>
-</ul>
-<ul>
-  <li><a>Logo</a></li>
-   <li><a><button>Explorer</button></a></li>
-   <li><a><button>My Library</button></a></li>
-</ul>
-<audio controls id="audio" class="audio1">
-  <source src="../PoloG.mp3" type="audio/ogg">
+    <ul>
+      <li>
+        <a><input type="text" /></a>
+      </li>
+      <li><a>Profile</a></li>
+    </ul>
+    <ul>
+      <li><a>j</a></li>
+      <li>
+        <a><button>Explorer</button></a>
+      </li>
+      <li>
+        <a><button>My Library</button></a>
+      </li>
+    </ul>
+    <div v-for ="product in Data" :key="product.id"> 
+  <p>{{product.Name}} </p> 
+  <img :src='product.Cover' alt="">
+<audio controls id="audio" class="audio1"  >
+  <source  src="../PoloG.mp3" type="audio/ogg">
   Your browser does not support the audio tag.
 </audio>
- {{mounted()}}
-  </div>  
-
-</template> 
+  <div>{{product.src}}</div>
+  </div> 
+  </div>
+</template>
 <script>
-import axios from 'axios';
+import axios from "axios";
 export default {
-  name: 'App',
+  name: "App",
   components: {},
-  data(){ 
+  data() {
     return {
-message : "Hello World " , 
-Data:{}
-}
-}, 
-methods:{ 
-x : function(){
-console.log("éd")
-}, 
-async  mounted() {
-  console.log("Helezlo")
-await axios.get("http://localhost:3000/get").then(data=>this.Data=data.data)
-console.log(this.Data)
-console.log("fef")
+      message: "Hello World ",
+      Data: {},
+    };
+  },
+  mounted() {
+    axios.get("http://localhost:3000/api/get").then((res) => {
+      this.Data = res.data;
+      console.log(res.data);
+    });
+  },
+  methods: {
+    x: function () {
+      console.log("éd");
+    }
+  },
+  
 
-
-} 
-
-}
-}
-
-setTimeout(() => {
-var audio= document.getElementById("audio");
-document.getElementById("audio").setAttribute('src' ,"../Lil.mp3")
-console.log(document.getElementsByClassName("audio1"))
-      // here You Set The 
-      //audio.currentTime=40;
-
-}, 300);
+   
+};
+// setTimeout(() => {
+//   var audio = document.getElementById("audio");
+//   // here You Set The
+//   audio.currentTime = 40;
+// }, 300);
 </script>
 <style>
 ul {
