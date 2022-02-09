@@ -1,7 +1,7 @@
 <template>
       
   <div id="app">
-  <component v-bind:is="component"></component>
+  <component v-bind:is="components"></component>
   
   </div>
 </template>
