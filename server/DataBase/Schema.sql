@@ -6,7 +6,4 @@ CREATE TABLE  songs (id int AUTO_INCREMENT , src varchar(1000) , Name varchar(50
 CREATE TABLE  playlist(id int , songs JSON ,name varchar(50), PRIMARY KEY (id) )ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
  
 
-
-
-
 -- ///   mysql -u root -p <server/DataBase/Schema.sql;   ///

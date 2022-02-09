@@ -24,7 +24,7 @@ const register =
                 msg: err,
               });
             } else {
-              // has hashed pw => add to database
+              // has hashed password => add to database
               db.db.query(
                 `INSERT INTO user (username, email, password) VALUES ('${
                   req.body.username
@@ -46,6 +46,7 @@ const register =
         }
       }
     );
+    
   });
 
 const login =
@@ -197,6 +198,24 @@ var PostSongs = function (Data, callback) {
     }
   );
 };
+
+const updateUser = (req, res) => {
+  // const params=req.params.id
+  const up = `UPDATE user SET username= '${req.body["username"]}' , email= '${req.body["email"]}' , password='${req.body["password"]}' WHERE id='${req.body["id"]}'`;
+  console.log(req.params.id);
+  // var sql = 'UPDATE `users` SET `furniture` = ' + `concat(furniture, '${lol}')` + 'WHERE `user` = ?'
+  db.db.query(up, (err, data) => {
+    console.log(data);
+    if (err) {
+      console.log("error in update");
+      res.send(err);
+    } else {
+      console.log("data updated");
+      res.send(data);
+    }
+  });
+};
+
 module.exports = {
   removefrompl,
   PostSongs,
@@ -205,4 +224,5 @@ module.exports = {
   register,
   login,
   getuser,
+  updateUser,
 };
