@@ -1,27 +1,57 @@
 <template>
+      
   <div id="app">
+  <component v-bind:is="component"></component>
   
   </div>
 </template>
 
 <script>
-
+import logIn from './components/logIn.vue'
+import signUp from './components/signUp.vue'
 
 export default {
   name: 'App',
-  components: {
- 
-  }
+  components:{
+    'log-in':logIn,
+    'sign-up':signUp
+  },
+ data(){
+   return {
+     
+     }
+ }
 }
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+*{
+  width: 100%;
+  height: 100%;
+  margin: 0;
 }
+/* this style is for the position of the page */
+#app{
+  background-size: cover;
+  /* min-width: 100%; */
+  /* min-height: 100%; */
+  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+  background-size: 400% 400%;
+  animation: gradient 15s ease infinite;
+
+}
+
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+/* this style is for the gradient color for the background first page  */
+
 </style>
