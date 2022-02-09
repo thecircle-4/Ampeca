@@ -16,7 +16,7 @@
       <p>email is: {{ email }}</p>
       <input v-model="password" placeholder="edit me" @change="someHandler" />
       <p>password is: {{ password }}</p>
-      <button type="button"  @click="updateUser()">Update</button>
+      <button type="button" @click="updateUser()">Update</button>
     </div>
   </div>
 </template>
@@ -29,36 +29,24 @@ export default {
       username: "",
       email: "",
       password: "",
-       products: {}
+  
     };
   },
   methods: {
-    updateUser(id) {
+   async updateUser(id) {
       let data = {
         username: this.username,
         email: this.email,
         password: this.password
       };
 
-      axios.put(`http://localhost:3000/api/updateuser/${id}`,data).then(response => {
-        console.log(response);
-      });
-    }
-  },
-  created() {
-            this.getProducts();
-        },
- methods: {
-    getProducts() {
-        const headers = { "Content-Type": "application/json" };
-        axios.get('http://localhost:3000/api/updateuser/', { headers })
-            .then(response => {
-              this.products = response.data;
-            }).catch(error => {
-                console.log(error.response.data);
+    await  axios
+        .put(`http://localhost:3000/api/updateuser/${id}`, data)
+        .then(response => {
+          console.log(response);
         });
-    },
-}
+    }
+  }
 };
 </script>
 
