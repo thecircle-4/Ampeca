@@ -1,5 +1,5 @@
 var db= require("../DataBase/Connection.js")
-
+//testing
 const removefrompl=(req,res)=>{
   var selsql=`SELECT songs FROM playlist WHERE id = ${req.body['id']} ` 
   db.db.query(selsql,(err,result)=>{
