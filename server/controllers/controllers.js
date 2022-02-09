@@ -48,6 +48,59 @@ const register =
     );
   });
 
+const login =
+  (loginValidation,
+  (req, res, next) => {
+    db.db.query(
+      `SELECT * FROM user WHERE email = ${db.db.escape(req.body.email)};`,
+      (err, result) => {
+        // user does not exists
+        if (err) {
+          throw err;
+          return res.status(400).send({
+            msg: err,
+          });
+        }
+        if (!result.length) {
+          return res.status(401).send({
+            msg: "Email or password is incorrect!",
+          });
+        }
+        // check password
+        bcrypt.compare(
+          req.body.password,
+          result[0]["password"],
+          (bErr, bResult) => {
+            // wrong password
+            if (bErr) {
+              throw bErr;
+              return res.status(401).send({
+                msg: "Email or password is incorrect!",
+              });
+            }
+            if (bResult) {
+              const token = jwt.sign(
+                { id: result[0].id },
+                "the-super-strong-secrect",
+                { expiresIn: "1h" }
+              );
+              db.db.query(
+                `UPDATE user SET last_login = now() WHERE id = '${result[0].id}'`
+              );
+              return res.status(200).send({
+                msg: "Logged in!",
+                token,
+                user: result[0],
+              });
+            }
+            return res.status(401).send({
+              msg: "Username or password is incorrect!",
+            });
+          }
+        );
+      }
+    );
+  });
 
 
 
