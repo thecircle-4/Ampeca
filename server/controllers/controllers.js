@@ -44,6 +44,10 @@ const register =
               );
             }
           });
+        }
+      }
+    );
+  });
 
 
 const login =
