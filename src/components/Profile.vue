@@ -29,7 +29,7 @@ export default {
       username: "",
       email: "",
       password: "",
-  
+      user: {}
     };
   },
   methods: {
@@ -44,6 +44,20 @@ export default {
         .put(`http://localhost:3000/api/updateuser/${id}`, data)
         .then(response => {
           console.log(response);
+        });
+    },
+    mounted() {
+      this.getUserInfo()
+    },
+
+    async getUserInfo(id) {
+      await axios
+        .get(`http://localhost:3000/api/getUserInfo/${id}`)
+        .then(response => {
+          this.user = response.data;
+        })
+        .catch(error => {
+          console.log(error.response.data);
         });
     }
   }
