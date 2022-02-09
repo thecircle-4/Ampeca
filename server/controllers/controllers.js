@@ -216,6 +216,18 @@ const updateUser = (req, res) => {
   });
 };
 
+const getUserInfo=(req,res)=>{
+  // const id=req.params.id
+  const userInfo=`SELECT * FROM user WHERE id = '${req.params["id"]}'`
+  db.db.query(userInfo,(err,data)=>{
+    if(err){
+      res.send(err)
+    }else{
+      res.send(data)
+    }
+  })
+}
+
 module.exports = {
   removefrompl,
   PostSongs,
@@ -225,4 +237,5 @@ module.exports = {
   login,
   getuser,
   updateUser,
+  getUserInfo
 };

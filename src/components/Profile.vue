@@ -28,7 +28,8 @@ export default {
     return {
       username: "",
       email: "",
-      password: ""
+      password: "",
+       products: {}
     };
   },
   methods: {
@@ -43,7 +44,21 @@ export default {
         console.log(response);
       });
     }
-  }
+  },
+  created() {
+            this.getProducts();
+        },
+ methods: {
+    getProducts() {
+        const headers = { "Content-Type": "application/json" };
+        axios.get('http://localhost:3000/api/updateuser/', { headers })
+            .then(response => {
+              this.products = response.data;
+            }).catch(error => {
+                console.log(error.response.data);
+        });
+    },
+}
 };
 </script>
 
