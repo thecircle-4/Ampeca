@@ -1,5 +1,14 @@
 var router = require('express').Router();
 const controllers = require('../controllers/controllers');
+
+
+
+
+router.post("/register",controllers.register)
+router.post("/getuser",controllers.getuser)
+router.post("/login",controllers.login)
+
+
 //just test for pushing github
 router.put("/delete/:id", controllers.removefrompl);
 router.post("/post",(req,res)=>{
@@ -25,6 +34,7 @@ router.get("/getsongs/:id",(req,res)=>{
         res.send(a);
     })
 })
+
 
 router.put("/updateplname", controllers.updateplname);
 module.exports = router;
