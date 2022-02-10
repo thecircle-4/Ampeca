@@ -3,7 +3,6 @@ const { signupValidation, loginValidation } = require("./validation");
 const { validationResult } = require("express-validator");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-
 const register =
   (signupValidation,
   (req, res, next) => {
@@ -166,39 +165,6 @@ const updateplname = (req, res) => {
   });
 };
 
-// Getting The Array of Song for Specfic user
-const GetPlaylistSong = function (User, callback) {
-  db.db.query(`SELECT songs FROM playlist WHERE id = '${User}'`, (err, rez) => {
-    if (err) callback(null);
-    else callback(rez);
-  });
-};
-
-// Posting a Song in Playlist Is like Updating the array in the Playlist table For Specfic user
-var PostSongs = function (Data, callback) {
-  var arr = [];
-  arr = JSON.stringify(Data["songs"]);
-  db.db.query(
-    `UPDATE   playlist SET songs = '${arr}' WHERE id =  '${Data["user"]}' `,
-    (err, rez) => {
-      console.log(rez);
-      if (rez.affectedRows == 0) {
-        db.db.query(
-          `INSERT INTO playlist (id , songs) VALUES ('${Data["user"]}' , '${arr}')`,
-          (err1, rez1) => {
-            console.log(err1, " ", rez1);
-            if (err1 !== null) callback("Err Ha");
-            else callback("Check Data Inserted");
-          }
-        );
-      } else {
-        if (err !== null) callback("err Hapaned");
-        else callback("Check Database");
-      }
-    }
-  );
-};
-
 const updateUser = (req, res) => {
   // const params=req.params.id
   const up = `UPDATE user SET username= '${req.body["username"]}' , email= '${req.body["email"]}' , password='${req.body["password"]}' WHERE id='${req.body["id"]}'`;
@@ -230,9 +196,7 @@ const getUserInfo=(req,res)=>{
 
 module.exports = {
   removefrompl,
-  PostSongs,
   updateplname,
-  GetPlaylistSong,
   register,
   login,
   getuser,
