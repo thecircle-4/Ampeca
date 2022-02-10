@@ -1,7 +1,7 @@
 
 <template>
 <div id="app">
-   <router-link to='/' >  
+   <router-link to='/Home' >  
    
 </router-link>
    <router-view></router-view>
@@ -21,7 +21,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 *{
   width: 100%;
   height: 100%;

@@ -1,33 +1,22 @@
 <template>
   <div id="app">
+    <nav class="horizontal">
+     <a class="logo" href="#">AMPECA</a>
+     <input type="text" placeholder="Search for songs ,artists ,lyrics, playlist..." id="search" role="combobox">
+    </nav>
    
-    <ul>
-      <li>
-        <a><input type="text" /></a>
-      </li>
-      <li><a>Profile</a></li>
-    </ul>
-    <ul>
-      <li><a>j</a></li>
-      <li>
-        <a><button class = "hello">Explorer</button></a>
-      </li>
-      <li>
-        <a><button>My Library</button></a>
-      </li>
-    </ul>
-    <div id="waveform"></div>
-
-    <div v-for ="product in Data" :key="product.id"> 
- <p> https://archive.org/embed/ {{product.src}}</p>
-  <p>{{product.Name}} </p> 
-  <img :src='product.Cover' alt="">
-<audio controls id="audio" class="audio1"  >
-  <source  :src='product.src' type="audio/ogg">
-  Your browser does not support the audio tag.
-</audio>
-  <div>{{product.src}}</div>
-  </div> 
+<div class="container">
+  <div v-for ="product in Data" :key="product.id"> 
+      <p> https://archive.org/embed/ {{product.src}}</p>
+      <p>{{product.Name}} </p> 
+      <img :src='product.Cover' alt="">
+          <audio controls id="audio" class="audio1"  >
+              <source  :src='product.src' type="audio/ogg">
+  <!-- Your browser does not support the audio tag. -->
+          </audio>
+  <div>{{product.src}}</div> </div> 
+</div>
+ 
   </div>
 </template>
 <script>
@@ -67,26 +56,35 @@ audio.currentTime = 40;
 
  }, 300);
 </script>
-<style>
-ul {
-  list-style-type: none;
+<style scoped>
+*{
+  width: 100%;
+  height: 100%;
   margin: 0;
-  padding: 0;
-  overflow: hidden;
-  background-color: #333;
+  background-color: #727272;;
 }
-li {
-  float: right;
+.horizontal{
+  position: relative;
+  background-color: #121212;
+  height: 50px;
 }
-li a {
-  display: block;
-  color: white;
-  text-align: center;
-  padding: 14px 16px;
+#search{
+  position: relative;
+  width: 300px;
+  height: 30px;
+  background-color: #e5e7ea;
+  border-radius: 20px;
+  left: 400px;
+  top: 7px;
+}
+.logo{
+  background-color:#121212;
+  color:#2471A3 ;
+  font-size: 20px;  
+  position: relative;
+  left: 20px;
+  top: 8px;
   text-decoration: none;
-}
-/* Change the link color to #111 (black) on hover */
-li a:hover {
-  background-color: #111;
+  font-family:Arial, Helvetica, sans-serif
 }
 </style>

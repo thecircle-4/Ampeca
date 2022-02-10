@@ -45,7 +45,7 @@
 
   
 
-<script>
+<script scoped>
 import axios from "axios";
 export default {
   data() {
