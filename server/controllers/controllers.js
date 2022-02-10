@@ -1,77 +1,259 @@
-var db= require("../DataBase/Connection.js")
-
-const removefrompl=(req,res)=>{
-  var selsql=`SELECT songs FROM playlist WHERE id = ${req.body['id']} ` 
-  db.db.query(selsql,(err,result)=>{
-    if(err){
-        res.send("err1");
-    }
-    console.log(result[0]["songs"],'bef')
-    var parse=JSON.parse(result[0]["songs"])
-    console.log(parse,"af")
-   
-    for( var i = 0; i < parse.length; i++){ 
-        if(parse[i] === req.body['songid']){
-            parse.splice(i, 1); 
+var db = require("../DataBase/Connection.js");
+const { signupValidation, loginValidation } = require("./validation");
+const { validationResult } = require("express-validator");
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+const register =
+  (signupValidation,
+  (req, res, next) => {
+    db.db.query(
+      `SELECT * FROM user WHERE LOWER(email) = LOWER(${db.db.escape(
+        req.body.email
+      )});`,
+      (err, result) => {
+        if (result.length) {
+          return res.status(409).send({
+            msg: "This user is already in use!",
+          });
+        } else {
+          // username is available
+          bcrypt.hash(req.body.password, 10, (err, hash) => {
+            if (err) {
+              return res.status(500).send({
+                msg: err,
+              });
+            } else {
+              // has hashed password => add to database
+              db.db.query(
+                `INSERT INTO user (username, email, password) VALUES ('${
+                  req.body.username
+                }', ${db.db.escape(req.body.email)}, ${db.db.escape(hash)})`,
+                (err, result) => {
+                  if (err) {
+                    throw err;
+                    return res.status(400).send({
+                      msg: err,
+                    });
+                  }
+                  return res.status(201).send({
+                    msg: "The user has been registerd with us!",
+                  });
+                }
+              );
+            }
+          });
         }
-    }
-    parse = JSON.stringify(parse)
-    var upsql=`UPDATE playlist SET songs = '${parse}' WHERE id = '${req.body['id']}' `
-    db.db.query(upsql,(err,resl)=>{
-        if(err){
-            res.send("err2");
-        }
-        res.send(resl);
-    }) 
-  })
-}
-const updateplname=(req,res)=>{
-    var selsql=`UPDATE playlist SET name = ?  WHERE id = ?  `   
-    db.db.query(selsql,[req.body['name'],req.body['id']],(err,result)=>{
-      if(err){
-          console.log(err);
       }
-      console.log(result);
-      res.send(result);
+    );
+    
+  });
+
+const login =
+  (loginValidation,
+  (req, res, next) => {
+    db.db.query(
+      `SELECT * FROM user WHERE email = ${db.db.escape(req.body.email)};`,
+      (err, result) => {
+        // user does not exists
+        if (err) {
+          throw err;
+          return res.status(400).send({
+            msg: err,
+          });
+        }
+        if (!result.length) {
+          return res.status(401).send({
+            msg: "Email or password is incorrect!",
+          });
+        }
+        // check password
+        bcrypt.compare(
+          req.body.password,
+          result[0]["password"],
+          (bErr, bResult) => {
+            // wrong password
+            if (bErr) {
+              throw bErr;
+              return res.status(401).send({
+                msg: "Email or password is incorrect!",
+              });
+            }
+            if (bResult) {
+              const token = jwt.sign(
+                { id: result[0].id },
+                "the-super-strong-secrect",
+                { expiresIn: "1h" }
+              );
+              db.db.query(
+                `UPDATE user SET last_login = now() WHERE id = '${result[0].id}'`
+              );
+              return res.status(200).send({
+                msg: "Logged in!",
+                token,
+                user: result[0],
+              });
+            }
+            return res.status(401).send({
+              msg: "Username or password is incorrect!",
+            });
+          }
+        );
+      }
+    );
+  });
+const getuser =
+  (signupValidation,
+  (req, res, next) => {
+    if (
+      !req.headers.authorization ||
+      !req.headers.authorization.startsWith("Bearer") ||
+      !req.headers.authorization.split(" ")[1]
+    ) {
+      return res.status(422).json({
+        message: "Please provide the token",
+      });
+    }
+    const theToken = req.headers.authorization.split(" ")[1];
+    const decoded = jwt.verify(theToken, "the-super-strong-secrect");
+    db.db.query(
+      "SELECT * FROM user where id=?",
+      decoded.id,
+      function (error, results, fields) {
+        if (error) throw error;
+        return res.send({
+          error: false,
+          data: results[0],
+          message: "Fetch Successfully.",
+        });
+      }
+    );
+  });
+
+  var db= require("../DataBase/Connection.js")
+  //testing
+  const removefrompl=(req,res)=>{
+      console.log(req.params,"fssfss",req.body)
+    var selsql=`SELECT songs FROM playlist WHERE id = ${req.params['id']} ` 
+    db.db.query(selsql,(err,result)=>{
+      if(err){
+          res.send("err1");
+      }
+      
+      var parse=JSON.parse(result[0]["songs"])
+      // console.log(parse,"af")
+     
+      for( var i = 0; i < parse.length; i++){ 
+          if(parse[i] === req.body['idsong']){
+              parse.splice(i, 1); 
+          }
+      }
+      parse = JSON.stringify(parse)
+      var upsql=`UPDATE playlist SET songs = '${parse}' WHERE id = '${req.params['id']}' `
+      db.db.query(upsql,(err,resl)=>{
+          if(err){
+              res.send("err2");
+          }
+          res.send(resl);
+      }) 
     })
   }
+  const updateplname=(req,res)=>{
+      var selsql=`UPDATE playlist SET name = ?  WHERE id = ?  `   
+      db.db.query(selsql,[req.body['name'],req.body['id']],(err,result)=>{
+        if(err){
+          console.log(err);
+        }
+          console.log(result);
+          res.send(result);
+      })
+    }
+  
+  // Getting The Array of Song for Specfic user 
+  const GetPlaylistSong = function(User , callback){
+      db.db.query(`SELECT songs FROM playlist WHERE id = '${User}'` , (err,rez)=>{
+          if(err)
+              callback(null)
+          else 
+              callback(rez)
+      })
+  }
+  
+  // Posting a Song in Playlist Is like Updating the array in the Playlist table For Specfic user
+  var PostSongs = function(Data,callback){
+      var arr = []
+      arr= JSON.stringify(Data["songs"])
+      db.db.query(`UPDATE   playlist SET songs = '${arr}' WHERE id =  '${Data["user"]}' ` , (err,rez)=> {
+          console.log(rez)
+          if(rez.affectedRows==0 ) {
+               db.db.query(`INSERT INTO playlist (id , songs) VALUES ('${Data['user']}' , '${arr}')` , (err1 ,rez1)=> {
+              console.log(err1 , " ",rez1)
+              if(err1!==null)
+                  callback("Err Ha")
+              else
+                  callback("Check Data Inserted")
+              })
+          }else {
+          if(err!==null)
+              callback("err Hapaned")
+          else
+              callback("Check Database")
+          }   
+      })
+  }
+  const GetSong = function(User , callback){
+      console.log(User, "this is the user ")
+      db.db.query(`SELECT * FROM songs WHERE id = '${User}'` , (err,rez)=>{
+         console.log(err," this is The Data ",rez)
+          if(err)
+              callback(null)
+          else 
+              callback(rez)
+          })
+  }
+ 
 
-// Getting The Array of Song for Specfic user 
-const GetPlaylistSong = function(User , callback){
-    db.db.query(`SELECT songs FROM playlist WHERE id = '${User}'` , (err,rez)=>{
-        if(err)
-            callback(null)
-        else 
-            callback(rez)
-        })
-}
+const updateUser = (req, res) => {
+  // const params=req.params.id
+  const up = `UPDATE user SET username= '${req.body["username"]}' , email= '${req.body["email"]}' , password='${req.body["password"]}' WHERE id='${req.body["id"]}'`;
+  console.log(req.params.id);
+  // var sql = 'UPDATE `users` SET `furniture` = ' + `concat(furniture, '${lol}')` + 'WHERE `user` = ?'
+  db.db.query(up, (err, data) => {
+    console.log(data);
+    if (err) {
+      console.log("error in update");
+      res.send(err);
+    } else {
+      console.log("data updated");
+      res.send(data);
+    }
+  });
+};
+
 
 // Posting a Song in Playlist Is like Updating the array in the Playlist table For Specfic user
-var PostSongs = function(Data,callback){
-    var arr = []
-    arr= JSON.stringify(Data["songs"])
-    db.db.query(`UPDATE   playlist SET songs = '${arr}' WHERE id =  '${Data["user"]}' ` , (err,rez)=> {
-        console.log(rez)
-        if(rez.affectedRows==0 ) {
-             db.db.query(`INSERT INTO playlist (id , songs) VALUES ('${Data['user']}' , '${arr}')` , (err1 ,rez1)=> {
-            console.log(err1 , " ",rez1)
-            if(err1!==null)
-                callback("Err Ha")
-            else
-                callback("Check Data Inserted")
-            })
-        }else {
-        if(err!==null)
-            callback("err Hapaned")
-        else
-            callback("Check Database")
-        }   
-    })
-}
-module.exports ={
-    removefrompl,
-    PostSongs,
-    updateplname,
-    GetPlaylistSong
+
+
+const getUserInfo=(req,res)=>{
+  // const id=req.params.id
+  const userInfo=`SELECT * FROM user WHERE id = '${req.params["id"]}'`
+  db.db.query(userInfo,(err,data)=>{
+    if(err){
+      res.send(err)
+    }else{
+      res.send(data)
+    }
+  })
 }
 
+module.exports = {
+  removefrompl,
+  GetPlaylistSong,
+  updateplname,
+  PostSongs,
+  register,
+  login,
+  getuser,
+  GetSong,
+  updateUser,
+  getUserInfo
+};
