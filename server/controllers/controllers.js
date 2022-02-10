@@ -1,4 +1,3 @@
-
 var db = require("../DataBase/Connection.js");
 const { signupValidation, loginValidation } = require("./validation");
 const { validationResult } = require("express-validator");
@@ -25,7 +24,7 @@ const register =
                 msg: err,
               });
             } else {
-              // has hashed pw => add to database
+              // has hashed password => add to database
               db.db.query(
                 `INSERT INTO user (username, email, password) VALUES ('${
                   req.body.username
@@ -44,7 +43,11 @@ const register =
               );
             }
           });
-
+        }
+      }
+    );
+    
+  });
 
 const login =
   (loginValidation,
@@ -195,6 +198,36 @@ var PostSongs = function (Data, callback) {
     }
   );
 };
+
+const updateUser = (req, res) => {
+  // const params=req.params.id
+  const up = `UPDATE user SET username= '${req.body["username"]}' , email= '${req.body["email"]}' , password='${req.body["password"]}' WHERE id='${req.body["id"]}'`;
+  console.log(req.params.id);
+  // var sql = 'UPDATE `users` SET `furniture` = ' + `concat(furniture, '${lol}')` + 'WHERE `user` = ?'
+  db.db.query(up, (err, data) => {
+    console.log(data);
+    if (err) {
+      console.log("error in update");
+      res.send(err);
+    } else {
+      console.log("data updated");
+      res.send(data);
+    }
+  });
+};
+
+const getUserInfo=(req,res)=>{
+  // const id=req.params.id
+  const userInfo=`SELECT * FROM user WHERE id = '${req.params["id"]}'`
+  db.db.query(userInfo,(err,data)=>{
+    if(err){
+      res.send(err)
+    }else{
+      res.send(data)
+    }
+  })
+}
+
 module.exports = {
   removefrompl,
   PostSongs,
@@ -203,4 +236,6 @@ module.exports = {
   register,
   login,
   getuser,
+  updateUser,
+  getUserInfo
 };
