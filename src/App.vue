@@ -1,83 +1,54 @@
-<template>
-  <div id="app">
-    <ul>
-      <li>
-        <a><input type="text" /></a>
-      </li>
-      <li><a>Profile</a></li>
-    </ul>
-    <ul>
-      <li><a>j</a></li>
-      <li>
-        <a><button>Explorer</button></a>
-      </li>
-      <li>
-        <a><button>My Library</button></a>
-      </li>
-    </ul>
-    <div v-for ="product in Data" :key="product.id"> 
-  <p>{{product.Name}} </p> 
-  <img :src='product.Cover' alt="">
-<audio controls id="audio" class="audio1"  >
-  <source  src="../PoloG.mp3" type="audio/ogg">
-  Your browser does not support the audio tag.
-</audio>
-  <div>{{product.src}}</div>
-  </div> 
-  </div>
-</template>
-<script>
-import axios from "axios";
-export default {
-  name: "App",
-  components: {},
-  data() {
-    return {
-      message: "Hello World ",
-      Data: {},
-    };
-  },
-  mounted() {
-    axios.get("http://localhost:3000/api/get").then((res) => {
-      this.Data = res.data;
-      console.log(res.data);
-    });
-  },
-  methods: {
-    x: function () {
-      console.log("éd");
-    }
-  },
-  
 
+<template>
+<div id="app">
+   <router-link to='/' >  
    
-};
-// setTimeout(() => {
-//   var audio = document.getElementById("audio");
-//   // here You Set The
-//   audio.currentTime = 40;
-// }, 300);
+</router-link>
+   <router-view></router-view>
+</div>
+
+</template>
+
+<script>
+
+
+export default {
+  name: 'App',
+  components:{ 
+    
+  }
+  
+}
 </script>
+
 <style>
-ul {
-  list-style-type: none;
+*{
+  width: 100%;
+  height: 100%;
   margin: 0;
-  padding: 0;
-  overflow: hidden;
-  background-color: #333;
 }
-li {
-  float: right;
+/* this style is for the position of the page */
+#app{
+  background-size: cover;
+  /* min-width: 100%; */
+  /* min-height: 100%; */
+  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+  background-size: 400% 400%;
+  animation: gradient 15s ease infinite;
+
 }
-li a {
-  display: block;
-  color: white;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
+
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
 }
-/* Change the link color to #111 (black) on hover */
-li a:hover {
-  background-color: #111;
-}
+/* this style is for the gradient color for the background first page  */
+
 </style>
