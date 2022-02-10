@@ -1,4 +1,3 @@
-
 var db = require("../DataBase/Connection.js");
 const { signupValidation, loginValidation } = require("./validation");
 const { validationResult } = require("express-validator");
@@ -25,7 +24,7 @@ const register =
                 msg: err,
               });
             } else {
-              // has hashed pw => add to database
+              // has hashed password => add to database
               db.db.query(
                 `INSERT INTO user (username, email, password) VALUES ('${
                   req.body.username
@@ -47,8 +46,8 @@ const register =
         }
       }
     );
+    
   });
-
 
 const login =
   (loginValidation,
@@ -199,6 +198,9 @@ var PostSongs = function (Data, callback) {
     }
   );
 };
+
+
+
 module.exports = {
   removefrompl,
   PostSongs,
@@ -207,4 +209,5 @@ module.exports = {
   register,
   login,
   getuser,
+
 };

@@ -1,12 +1,10 @@
-var router = require('express').Router();
-const controllers = require('../controllers/controllers');
+var router = require("express").Router();
+const controllers = require("../controllers/controllers");
 
+router.post("/register", controllers.register);
+router.post("/getuser", controllers.getuser);
+router.post("/login", controllers.login);
 
-
-
-router.post("/register",controllers.register)
-router.post("/getuser",controllers.getuser)
-router.post("/login",controllers.login)
 
 
 //just test for pushing github
