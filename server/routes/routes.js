@@ -6,6 +6,7 @@ router.post("/getuser", controllers.getuser);
 router.post("/login", controllers.login);
 router.put("/updateuser/:id", controllers.updateUser);
 router.get("/getUserInfo/:id", controllers.getUserInfo);
+router.get("/get", controllers.GetAllSong);
 
 
 
