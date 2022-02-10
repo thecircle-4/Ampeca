@@ -9,6 +9,7 @@
     "server": "nodemon server/index.js"
   },
   "dependencies": {
+    "@dongido/vue-viaudio": "^0.3.5",
     "axios": "^0.25.0",
     "bcrypt": "^5.0.1",
     "bcryptjs": "^2.4.3",
