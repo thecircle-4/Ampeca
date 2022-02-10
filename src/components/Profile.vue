@@ -2,24 +2,48 @@
   <div>
     <div class="sidebar" id="sidebars">
       <ul class="links">
-        <li class="link active">
+        <li v-on:click="isHidden = !isHidden" class="link active">
           <a href="#">
             <ion-icon name="home-outline" class="icono-gear"></ion-icon>Settings
           </a>
         </li>
+        <li v-on:click="isHidden = true" class="link active">
+          <a href="#">
+            <ion-icon name="home-outline" class="icono-gear"></ion-icon>Profile
+          </a>
+        </li>
       </ul>
     </div>
-    <div class="inputDiv">
-      <input v-model="username" placeholder="edit me" @change="someHandler" />
-      <p>username is: {{ username }}</p>
-      <input v-model="email" placeholder="edit me" @change="someHandler" />
-      <p>email is: {{ email }}</p>
-      <input v-model="password" placeholder="edit me" @change="someHandler" />
-      <p>password is: {{ password }}</p>
-      <button type="button" @click="updateUser()">Update</button>
+    <div v-if="!isHidden">
+      <!-- <h1  class="welcomepro">welcome home user</h1> -->
+    </div>
+    <div v-if="!isHidden" class="form">
+      <div class="title">Welcome</div>
+      <div class="subtitle">Let's Edit your acount!</div>
+      <div class="input-container ic1">
+        <input v-model="username" class="input" @change="someHandler" />
+        <!-- <p>username is: {{ username }}</p> -->
+        <div class="cut"></div>
+        <label for="username" class="placeholder">User name</label>
+      </div>
+      <div class="input-container ic2">
+        <input v-model="email" class="input" @change="someHandler" />
+        <!-- <p>email is: {{ email }}</p> -->
+        <div class="cut"></div>
+        <label for="email" class="placeholder">Email</label>
+      </div>
+      <div class="input-container ic2">
+        <input v-model="password" class="input" type="password" @change="someHandler" />
+        <!-- <p>password is: {{ password }}</p> -->
+        <div class="cut cut-short"></div>
+        <label for="password" class="placeholder">password</label>
+      </div>
+      <button @click="updateUser()" type="text" class="submit">submit</button>
     </div>
   </div>
 </template>
+
+  
 
 <script>
 import axios from "axios";
@@ -29,25 +53,26 @@ export default {
       username: "",
       email: "",
       password: "",
-      user: {}
+      user: {},
+      isHidden: true
     };
   },
   methods: {
-   async updateUser(id) {
+    async updateUser(id) {
       let data = {
         username: this.username,
         email: this.email,
         password: this.password
       };
 
-    await  axios
+      await axios
         .put(`http://localhost:3000/api/updateuser/${id}`, data)
         .then(response => {
           console.log(response);
         });
     },
     mounted() {
-      this.getUserInfo()
+      this.getUserInfo();
     },
 
     async getUserInfo(id) {
@@ -65,6 +90,13 @@ export default {
 </script>
 
 <style>
+.welcomepro {
+  position: relative;
+  display: block;
+  margin-left: 600px;
+  margin-right: auto;
+  align-items: center;
+}
 @import url("https://icono-49d6.kxcdn.com/icono.min.css");
 :root {
   --bg-color: #000811;
@@ -73,12 +105,16 @@ export default {
   --color: #2b82df;
   /* --box-shadow: #0b488a 5px 0px 50px 0px; */
 }
+/* /////////   side bar div /////// */
 .inputDiv {
-  position: relative;
+  /* position: relative; */
   margin: auto;
   width: 50%;
   border: 3px solid #006ce0;
   padding: 10px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 .sidebar {
   height: 100vh;
@@ -140,5 +176,132 @@ export default {
 }
 .sidebar li a:hover {
   margin-left: 2px;
+}
+/* ///////////  user inputs div      ///////// */
+/* body {
+  align-items: center;
+  background-color: #000;
+  display: flex;
+  justify-content: center;
+  height: 100vh;
+} */
+.form {
+  background-color: #15172b;
+  border-radius: 20px;
+  box-sizing: border-box;
+  height: 700px;
+  padding: 20px;
+  width: 820px;
+  /* display: block; */
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.title {
+  color: #eee;
+  font-family: sans-serif;
+  font-size: 36px;
+  font-weight: 600;
+  margin-top: 30px;
+}
+
+.subtitle {
+  color: #eee;
+  font-family: sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  margin-top: 10px;
+}
+
+.input-container {
+  height: 50px;
+  position: relative;
+  width: 100%;
+}
+
+.ic1 {
+  margin-top: 40px;
+}
+
+.ic2 {
+  margin-top: 30px;
+}
+
+.input {
+  background-color: #303245;
+  border-radius: 12px;
+  border: 0;
+  box-sizing: border-box;
+  color: #eee;
+  font-size: 18px;
+  height: 100%;
+  outline: 0;
+  padding: 4px 20px 0;
+  width: 100%;
+}
+
+.cut {
+  background-color: #15172b;
+  border-radius: 10px;
+  height: 20px;
+  left: 20px;
+  position: absolute;
+  top: -20px;
+  transform: translateY(0);
+  transition: transform 200ms;
+  width: 76px;
+}
+
+.cut-short {
+  width: 75px;
+}
+
+.input:focus ~ .cut,
+.input:not(:placeholder-shown) ~ .cut {
+  transform: translateY(8px);
+}
+
+.placeholder {
+  color: #65657b;
+  font-family: sans-serif;
+  left: 20px;
+  line-height: 14px;
+  pointer-events: none;
+  position: absolute;
+  transform-origin: 0 50%;
+  transition: transform 200ms, color 200ms;
+  top: 20px;
+}
+
+.input:focus ~ .placeholder,
+.input:not(:placeholder-shown) .placeholder {
+  transform: translateY(-30px) translateX(10px) scale(0.75);
+}
+
+.input:not(:placeholder-shown) ~ .placeholder {
+  color: #808097;
+}
+
+.input:focus ~ .placeholder {
+  color: #dc2f55;
+}
+
+.submit {
+  background-color: #08d;
+  border-radius: 12px;
+  border: 0;
+  box-sizing: border-box;
+  color: #eee;
+  cursor: pointer;
+  font-size: 18px;
+  height: 50px;
+  margin-top: 38px;
+  outline: 0;
+  text-align: center;
+  width: 100%;
+}
+
+.submit:active {
+  background-color: #06b;
 }
 </style>
