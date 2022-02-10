@@ -1,6 +1,5 @@
 <template>
   <div id="app">
-  
     <ul>
       <li>
         <a><input type="text" /></a>
@@ -67,7 +66,7 @@ audio.currentTime = 40;
 
  }, 300);
 </script>
-<style>
+<style scoped>
 ul {
   list-style-type: none;
   margin: 0;
