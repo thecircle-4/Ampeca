@@ -1,22 +1,23 @@
 var db= require("../DataBase/Connection.js")
 //testing
 const removefrompl=(req,res)=>{
-  var selsql=`SELECT songs FROM playlist WHERE id = ${req.body['id']} ` 
+    console.log(req.params,"fssfss",req.body)
+  var selsql=`SELECT songs FROM playlist WHERE id = ${req.params['id']} ` 
   db.db.query(selsql,(err,result)=>{
     if(err){
         res.send("err1");
     }
-    console.log(result[0]["songs"],'bef')
+    
     var parse=JSON.parse(result[0]["songs"])
-    console.log(parse,"af")
+    // console.log(parse,"af")
    
     for( var i = 0; i < parse.length; i++){ 
-        if(parse[i] === req.body['songid']){
+        if(parse[i] === req.body['idsong']){
             parse.splice(i, 1); 
         }
     }
     parse = JSON.stringify(parse)
-    var upsql=`UPDATE playlist SET songs = '${parse}' WHERE id = '${req.body['id']}' `
+    var upsql=`UPDATE playlist SET songs = '${parse}' WHERE id = '${req.params['id']}' `
     db.db.query(upsql,(err,resl)=>{
         if(err){
             res.send("err2");
@@ -29,10 +30,10 @@ const updateplname=(req,res)=>{
     var selsql=`UPDATE playlist SET name = ?  WHERE id = ?  `   
     db.db.query(selsql,[req.body['name'],req.body['id']],(err,result)=>{
       if(err){
-          console.log(err);
+        console.log(err);
       }
-      console.log(result);
-      res.send(result);
+        console.log(result);
+        res.send(result);
     })
   }
 
@@ -43,7 +44,7 @@ const GetPlaylistSong = function(User , callback){
             callback(null)
         else 
             callback(rez)
-        })
+    })
 }
 
 // Posting a Song in Playlist Is like Updating the array in the Playlist table For Specfic user
@@ -68,10 +69,21 @@ var PostSongs = function(Data,callback){
         }   
     })
 }
+const GetSong = function(User , callback){
+    console.log(User, "this is the user ")
+    db.db.query(`SELECT * FROM songs WHERE id = '${User}'` , (err,rez)=>{
+       console.log(err," this is The Data ",rez)
+        if(err)
+            callback(null)
+        else 
+            callback(rez)
+        })
+}
 module.exports ={
     removefrompl,
     PostSongs,
     updateplname,
-    GetPlaylistSong
+    GetPlaylistSong,
+    GetSong
 }
 
