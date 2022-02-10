@@ -182,6 +182,63 @@ const updateUser = (req, res) => {
   });
 };
 
+// Getting The Array of Song for Specfic user
+const GetPlaylistSong = function(callback){
+  db.db.query("SELECT * FROM songs " , (err,rez)=> {
+      console.log(err," ",rez)
+  if(err!==null)
+  callback(null)
+  else 
+  callback(rez)
+  })
+  }
+
+// Posting a Song in Playlist Is like Updating the array in the Playlist table For Specfic user
+var PostSongs = function (Data, callback) {
+  var arr = [];
+  arr = JSON.stringify(Data["songs"]);
+  db.db.query(
+    `UPDATE   playlist SET songs = '${arr}' WHERE id =  '${Data["user"]}' `,
+    (err, rez) => {
+      console.log(rez);
+      if (rez.affectedRows == 0) {
+        db.db.query(
+          `INSERT INTO playlist (id , songs) VALUES ('${Data["user"]}' , '${arr}')`,
+          (err1, rez1) => {
+            console.log(err1, " ", rez1);
+            if (err1 !== null) callback("Err Ha");
+            else callback("Check Data Inserted");
+          }
+        );
+      } else {
+        if (err !== null) callback("err Hapaned");
+        else callback("Check Database");
+      }
+    }
+  );
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 const getUserInfo=(req,res)=>{
   // const id=req.params.id
   const userInfo=`SELECT * FROM user WHERE id = '${req.params["id"]}'`
@@ -196,7 +253,9 @@ const getUserInfo=(req,res)=>{
 
 module.exports = {
   removefrompl,
+  GetPlaylistSong,
   updateplname,
+  PostSongs,
   register,
   login,
   getuser,
