@@ -1,6 +1,5 @@
 <template>
   <div id="app">
-   <script src="https://unpkg.com/wavesurfer.js"></script>
     <ul>
       <li>
         <a><input type="text" /></a>
