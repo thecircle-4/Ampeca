@@ -3,7 +3,6 @@ const { signupValidation, loginValidation } = require("./validation");
 const { validationResult } = require("express-validator");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-
 const register =
   (signupValidation,
   (req, res, next) => {
@@ -211,31 +210,7 @@ const getuser =
               callback(rez)
           })
   }
-
-// Posting a Song in Playlist Is like Updating the array in the Playlist table For Specfic user
-var PostSongs = function (Data, callback) {
-  var arr = [];
-  arr = JSON.stringify(Data["songs"]);
-  db.db.query(
-    `UPDATE   playlist SET songs = '${arr}' WHERE id =  '${Data["user"]}' `,
-    (err, rez) => {
-      console.log(rez);
-      if (rez.affectedRows == 0) {
-        db.db.query(
-          `INSERT INTO playlist (id , songs) VALUES ('${Data["user"]}' , '${arr}')`,
-          (err1, rez1) => {
-            console.log(err1, " ", rez1);
-            if (err1 !== null) callback("Err Ha");
-            else callback("Check Data Inserted");
-          }
-        );
-      } else {
-        if (err !== null) callback("err Hapaned");
-        else callback("Check Database");
-      }
-    }
-  );
-};
+ 
 
 const updateUser = (req, res) => {
   // const params=req.params.id
@@ -254,6 +229,10 @@ const updateUser = (req, res) => {
   });
 };
 
+
+// Posting a Song in Playlist Is like Updating the array in the Playlist table For Specfic user
+
+
 const getUserInfo=(req,res)=>{
   // const id=req.params.id
   const userInfo=`SELECT * FROM user WHERE id = '${req.params["id"]}'`
@@ -268,9 +247,9 @@ const getUserInfo=(req,res)=>{
 
 module.exports = {
   removefrompl,
-  PostSongs,
-  updateplname,
   GetPlaylistSong,
+  updateplname,
+  PostSongs,
   register,
   login,
   getuser,

@@ -8,16 +8,11 @@ router.put("/updateuser/:id", controllers.updateUser);
 router.get("/getUserInfo/:id", controllers.getUserInfo);
 
 
+
+
+
 //just test for pushing github
 router.put("/delete/:id", controllers.removefrompl);
-router.post("/post",(req,res)=>{
-    controllers.PostSongs(req.body,(a,b)=>{
-        if(a){
-            console.log(a);
-        }
-        console.log(b);
-    })
-})
 router.get("/get/:id",(req,res)=>{
 console.log(req.params.id);
     controllers.GetPlaylistSong(req.params.id,(a,b)=>{
@@ -34,6 +29,16 @@ router.get("/getsongs/:id",(req,res)=>{
     })
 })
 
+
+router.post("/post", (req, res) => {
+    controllers.PostSongs(req.body, (a, b) => {
+      if (a) {
+        console.log(a);
+      }
+      console.log(b);
+    });
+  });
+  
 
 router.put("/updateplname", controllers.updateplname);
 module.exports = router;
