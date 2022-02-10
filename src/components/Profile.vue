@@ -58,15 +58,18 @@ export default {
     };
   },
   methods: {
-    async updateUser(id) {
+    async updateUser() {
       let data = {
         username: this.username,
         email: this.email,
         password: this.password
       };
+      var x = window.location.href.substr(30,1) 
+x= parseInt(x)
+alert(x)
 
       await axios
-        .put(`http://localhost:3000/api/updateuser/${id}`, data)
+        .put(`http://localhost:3000/api/updateuser/${x}`, data)
         .then(response => {
           console.log(response);
         });
@@ -76,6 +79,7 @@ export default {
     },
 
     async getUserInfo(id) {
+      
       await axios
         .get(`http://localhost:3000/api/getUserInfo/${id}`)
         .then(response => {
@@ -89,7 +93,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .welcomepro {
   position: relative;
   display: block;
