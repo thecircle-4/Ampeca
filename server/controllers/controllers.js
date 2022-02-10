@@ -227,18 +227,6 @@ var PostSongs = function (Data, callback) {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 const getUserInfo=(req,res)=>{
   // const id=req.params.id
   const userInfo=`SELECT * FROM user WHERE id = '${req.params["id"]}'`
