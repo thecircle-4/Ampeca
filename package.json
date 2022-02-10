@@ -9,6 +9,8 @@
     "server": "nodemon server/index.js"
   },
   "dependencies": {
+    "@dongido/vue-viaudio": "^0.3.5",
+    "axios": "^0.25.0",
     "bcrypt": "^5.0.1",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.1",
@@ -22,9 +24,9 @@
     "jsonwebtoken": "^8.5.1",
     "mysql": "^2.18.1",
     "nodemon": "^2.0.15",
-    "vue-input-autowidth": "^1.0.11",
     "uuid": "^8.3.2",
     "vue": "^3.2.29",
+    "vue-input-autowidth": "^1.0.11",
     "vue-router": "^4.0.12"
   },
   "devDependencies": {

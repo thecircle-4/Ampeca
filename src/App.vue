@@ -1,27 +1,23 @@
 
 <template>
-      
-  <div id="app">
-  <component v-bind:is="components"></component>
-  
-  </div>
+<div id="app">
+   <router-link to='/' >  
+   
+</router-link>
+   <router-view></router-view>
+</div>
+
 </template>
 
 <script>
-import logIn from './components/logIn.vue'
-import signUp from './components/signUp.vue'
+
 
 export default {
   name: 'App',
-  components:{
-    'log-in':logIn,
-    'sign-up':signUp
-  },
- data(){
-   return {
-     
-     }
- }
+  components:{ 
+    
+  }
+  
 }
 </script>
 
