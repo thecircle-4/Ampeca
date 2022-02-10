@@ -1,11 +1,10 @@
 <template>
   <div id="app">
-   <script src="https://unpkg.com/wavesurfer.js"></script>
     <ul>
       <li>
         <a><input type="text" /></a>
       </li>
-      <li><a>Profile</a></li>
+      <li @click="ToProfile"><a>Profile</a></li>
     </ul>
     <ul>
       <li><a>j</a></li>
@@ -21,6 +20,7 @@
     <div v-for ="product in Data" :key="product.id"> 
  <p> https://archive.org/embed/ {{product.src}}</p>
   <p>{{product.Name}} </p> 
+  <button @click="AddToPlaylist(product.id)">Add To playlist</button>
   <img :src='product.Cover' alt="">
 <audio controls id="audio" class="audio1"  >
   <source  :src='product.src' type="audio/ogg">
@@ -49,13 +49,39 @@ export default {
       this.Data = res.data;
       console.log(res.data);
     });
-
-
+    
   },
   methods: {
     x: function () {
       console.log("éd");
-    }
+    },
+    AddToPlaylist: function(event){
+var x = window.location.href.substr(27,1) 
+x= parseInt(x)
+var data = {
+user:x ,  
+songs:event
+} 
+axios.post("http://localhost:3000/api/post",data).then(res=> {
+console.log("Check The DataBase ")
+console.log(res)
+
+})
+
+} , 
+ToProfile : function(){ 
+var x = window.location.href.substr(27,1) 
+x= parseInt(x)
+
+          this.$router.push({ name: "profile", query: { redirect: "/profile" } , params:{id:x}});
+
+
+}
+
+
+
+
+    
   },
 };
  setTimeout(() => {
@@ -67,7 +93,7 @@ audio.currentTime = 40;
 
  }, 300);
 </script>
-<style>
+<style scoped>
 ul {
   list-style-type: none;
   margin: 0;

@@ -20,7 +20,7 @@
       </router-link>
     </div>
 
-    <router-link to="/Home">
+    <router-link to="/home">
       <button @click="login()" class="log-but">Login</button>
     </router-link>
   </div>
@@ -44,11 +44,12 @@ export default {
         email: this.email,
         password: this.password
       };
+      
       await axios
         .post("http://localhost:3000/api/login", data)
-        .then(({ data }) => {
-          console.log(data);
-          this.$router.push({ name: "Home", query: { redirect: "/Home" } });
+        .then(( {data} ) => {
+          console.log(data.user["id"]);
+          this.$router.push({ name: "Home", query: { redirect: "/Home" } , params:{id:data.user["id"]}});
         })
         .catch(err => {
           this.$router.push({ name: "login", query: { redirect: "/login" } });
@@ -60,7 +61,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 * {
   width: 100%;
   height: 100%;

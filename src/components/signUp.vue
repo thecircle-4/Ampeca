@@ -74,7 +74,7 @@ export default {
 
 }
 </script>
-<style >
+<style scoped>
 #container-signup{
   position: absolute;
   width: 450px;
