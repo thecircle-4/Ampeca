@@ -129,7 +129,8 @@ const getuser =
     );
   });
 
-  var db= require("../DataBase/Connection.js")
+  var db= require("../DataBase/Connection.js");
+const e = require("express");
   //testing
   const removefrompl=(req,res)=>{
       console.log(req.params,"fssfss",req.body)
@@ -180,25 +181,40 @@ const getuser =
   
   // Posting a Song in Playlist Is like Updating the array in the Playlist table For Specfic user
   var PostSongs = function(Data,callback){
-      var arr = []
-      arr= JSON.stringify(Data["songs"])
-      db.db.query(`UPDATE   playlist SET songs = '${arr}' WHERE id =  '${Data["user"]}' ` , (err,rez)=> {
-          console.log(rez)
-          if(rez.affectedRows==0 ) {
-               db.db.query(`INSERT INTO playlist (id , songs) VALUES ('${Data['user']}' , '${arr}')` , (err1 ,rez1)=> {
-              console.log(err1 , " ",rez1)
-              if(err1!==null)
-                  callback("Err Ha")
-              else
-                  callback("Check Data Inserted")
-              })
-          }else {
-          if(err!==null)
-              callback("err Hapaned")
-          else
-              callback("Check Database")
-          }   
+
+     db.db.query(`select * from playlist where id ='${Data["user"]}' ` , (err,rez)=>{
+      if(err)
+callback("err in finding the user")
+else 
+{
+var x = []
+var arr =[]
+arr.push(JSON.parse(Data["songs"]))
+console.log(rez ," rez"  ,rez["0"]["songs"])
+  x=JSON.parse(rez['0']["songs"]) 
+  
+arr=arr.concat(x) 
+var arr1 =[]
+arr= JSON.stringify(arr)
+console.log(arr , 'this is the Array ')
+db.db.query(`UPDATE playlist SET songs = '${arr}' WHERE id ='${Data["user"]}' ` , (err,rez)=> {
+  if(rez.affectedRows==0 ) {
+       db.db.query(`INSERT INTO playlist (id , songs) VALUES ('${Data['user']}' , '${arr}')` , (err1 ,rez1)=> {
+      if(err1!==null)
+          callback("Err Ha")
+      else
+          callback("Check Data Inserted")
       })
+  }else {
+  if(err!==null)
+      callback("err Hapaned")
+  else
+      callback("Check Database")
+  }   
+})
+}
+})
+      
   }
   const GetSong = function(User , callback){
       console.log(User, "this is the user ")
@@ -211,10 +227,27 @@ const getuser =
           })
   }
  
+  var GetAllSong=function(req,res){
+       db.db.query("SELECT * FROM songs " , (err,rez)=> { 
+if(err)
+res.send(err)
+else 
+res.send(rez)
+
+       }) 
+
+
+  }
+
+
+
 
 const updateUser = (req, res) => {
   // const params=req.params.id
-  const up = `UPDATE user SET username= '${req.body["username"]}' , email= '${req.body["email"]}' , password='${req.body["password"]}' WHERE id='${req.body["id"]}'`;
+console.log(req.params["id"] ," that is the params")
+console.log(req.body , " that is the body ")
+
+  const up = `UPDATE user SET username= '${req.body["username"]}' , email= '${req.body["email"]}' , password='${req.body["password"]}' WHERE id='${req.params["id"]}'`;
   console.log(req.params.id);
   // var sql = 'UPDATE `users` SET `furniture` = ' + `concat(furniture, '${lol}')` + 'WHERE `user` = ?'
   db.db.query(up, (err, data) => {
@@ -252,6 +285,7 @@ module.exports = {
   PostSongs,
   register,
   login,
+  GetAllSong, 
   getuser,
   GetSong,
   updateUser,
