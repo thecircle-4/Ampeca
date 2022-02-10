@@ -13,6 +13,7 @@ router.get("/get", controllers.GetAllSong);
 
 
 //just test for pushing github
+router.get("/get",controllers.GetAllSong)
 router.put("/delete/:id", controllers.removefrompl);
 router.get("/get/:id",(req,res)=>{
 console.log(req.params.id);
@@ -33,10 +34,13 @@ router.get("/getsongs/:id",(req,res)=>{
 
 router.post("/post", (req, res) => {
     controllers.PostSongs(req.body, (a, b) => {
-      if (a) {
-        console.log(a);
-      }
-      console.log(b);
+console.log(a," ", b)
+        if (a) {
+
+res.send(a)
+        }
+        else 
+        res.send(b)
     });
   });
   
