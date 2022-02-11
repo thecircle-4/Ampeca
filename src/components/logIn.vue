@@ -4,7 +4,7 @@
       <div class="logo-img">
         <img src="../assests/img.png.png" id="img" />
       </div>
-      <form>
+      
         <input v-model="email" type="email" placeholder="Email" class="input" @change="someHandler" />
         <input
           v-model="password"
@@ -14,7 +14,7 @@
           id="pass"
           @change="someHandler"
         />
-      </form>
+    
       <router-link to="/signup">
         <a href="#" id="a">create new account ?</a>
       </router-link>
@@ -23,7 +23,9 @@
     <router-link to="/home">
       <button @click="login()" class="log-but">Login</button>
     </router-link>
+    <router-view></router-view>
   </div>
+  
 </template>
 
 <script>
@@ -66,12 +68,13 @@ export default {
   width: 100%;
   height: 100%;
   margin: 0;
+  
 }
 /* this style is for the position of the page */
 #app {
-  background-size: cover;
-  /* min-width: 100%; */
-  /* min-height: 100%; */
+  /* background-size: cover; */
+  min-width: 100%;
+  min-height: 100%;
   background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
   background-size: 400% 400%;
   animation: gradient 15s ease infinite;
@@ -96,7 +99,7 @@ export default {
   border-radius: 15px;
   border: 3px solid rgb(245, 244, 244);
   bottom: 200px;
-  left: 550px;
+  left: 580px;
   background-color: rgb(245, 244, 244);
 }
 /* this is the containe the inputs of the login  */
@@ -112,8 +115,8 @@ export default {
   font-weight: 600;
   border-radius: 25px;
   border-color: #97e2f0;
-  top: 470px;
-  left: 600px;
+  top: 430px;
+  left: 640px;
 }
 .log-but:hover {
   box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24),
@@ -140,17 +143,17 @@ export default {
   top: 150px;
 }
 #a {
-  position: absolute;
-  top: 220px;
-  left: 55px;
+  position: relative;
+  bottom: 140px;
+  left: 50px;
   color: black;
 }
 #img {
-  position: absolute;
+  position:relative;
   width: 150px;
   height: 80px;
-  padding: 40px;
-  top: -35px;
-  left: 80px;
+  padding: 10px;
+  top: -0px;
+  left: 120px;
 }
 </style>

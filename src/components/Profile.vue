@@ -41,6 +41,7 @@
       <button @click="updateUser()" type="text" class="submit">submit</button>
     </div>
   </div>
+  
 </template>
 
   
@@ -71,6 +72,7 @@ alert(x)
       await axios
         .put(`http://localhost:3000/api/updateuser/${x}`, data)
         .then(response => {
+          console.log(x)
           console.log(response);
         });
     },
@@ -102,13 +104,13 @@ alert(x)
   align-items: center;
 }
 @import url("https://icono-49d6.kxcdn.com/icono.min.css");
-:root {
+/* :root {
   --bg-color: #000811;
   --primary-color: #006ce0;
   --border-radius: 6px;
-  --color: #2b82df;
+  --color: #2b82df; */
   /* --box-shadow: #0b488a 5px 0px 50px 0px; */
-}
+/* } */
 /* /////////   side bar div /////// */
 .inputDiv {
   /* position: relative; */
@@ -121,12 +123,13 @@ alert(x)
   margin-right: auto;
 }
 .sidebar {
+  background-color:  #000811;
   height: 100vh;
   position: fixed;
   top: 0;
   left: 0;
   width: 300px;
-  background: var(--bg-color);
+  /* background: var(--bg-color); */
   transition: left 0.5s ease;
   -webkit-transition: left 0.5s ease;
   -moz-transition: left 0.5s ease;
@@ -149,7 +152,8 @@ alert(x)
 }
 
 .sidebar ul li.active {
-  background: var(--primary-color);
+  /* background: var(--primary-color); */
+  background-color: #2b82df;
   transition: background 0.5s linear;
   box-shadow: rgba(20, 114, 238, 0.918) 0px 2px 10px 0px;
   width: 200px;
@@ -197,8 +201,9 @@ alert(x)
   padding: 20px;
   width: 820px;
   /* display: block; */
-  margin-left: auto;
-  margin-right: auto;
+ position: absolute;
+ left: 540px;
+ top: 40px;
 }
 
 .title {

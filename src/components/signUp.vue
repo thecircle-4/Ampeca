@@ -4,11 +4,11 @@
      <img src="../assests/img.png.png" id="img" >
     </div>
      <form >
+      <input type="text" v-model="username" @change="someHandler" placeholder="Write your username" class="inpu">
       <input type="email" v-model="email" @change="someHandler" placeholder="Write your Email" id="email" class="inpu">
        <input type="password" v-model="password" @change="someHandler" placeholder="Write your Password" id="pas" class="inpu">
-        <input type="text" v-model="username" @change="someHandler" placeholder="Write your username" class="inpu">
      </form>
-     <div class="date">
+     <!-- <div class="date">
      <div class="label">
      </div >
      <input type="text" id="day" inputmode="numeric" maxlength="2" placeholder="DD" >
@@ -34,13 +34,13 @@
          </select>
      </div>
      <input type="text" placeholder="Year" id="year" maxlength="4" name="year" pattern="(19[0-9]{2})|(200)[0-4]" aria-invalid="false">
-     
-        <label id="box" for="checkbox">
+      -->
+        <!-- <label id="box" for="checkbox">
          <span class="check"></span>
          <span class="agree">agree to receive news and  offers <br>from Ampeca</span>
-     </label>
+     </label> -->
  
-    <router-link to="/"> <button @click="signup()" class="signup">signup</button> </router-link>
+    <router-link to="/"> <button @click="signup()" id="signup">signup</button> </router-link>
     </div>
     
 </template>
@@ -78,14 +78,14 @@ export default {
 #container-signup{
   position: absolute;
   width: 450px;
-  height:500px;
+  height:400px;
   border-radius: 15px;
   border: 3px solid  rgb(245, 244, 244)  ;
-  bottom:150px;
-  left: 550px;
+  bottom:200px;
+  left: 580px;
   background-color: rgb(245, 244, 244);
 }
-.log-but{
+#signup{
     position: absolute;
     width: 300px;
     height: 50px;
@@ -95,10 +95,10 @@ export default {
     font-weight: 600;
     border-radius: 25px;
     border-color: #97e2f0;
-    top: 470px;
-    left: 600px;
+    top: 300px;
+    left:70px;
   }
-  .log-but:hover {
+  #signup:hover {
   box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
 }
 /* this style for the button and i make it hover  */
