@@ -24,10 +24,8 @@
       </div>
       <div>
       <button @click="updateUser()" type="text" class="submit">submit</button>
+      <button @click="ToHome()" type="text" class="icono-home">home</button>
       </div>
-      <div>
-      <button @click="ToHome()" type="text" class="submit">home</button>
-    </div>
     </div>
   </div>
    </body>
@@ -99,28 +97,13 @@ export default {
 
 <style scoped>
 
-
-/* .bigbig {
-  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
-  background-size: 400% 400%;
-  animation: gradient 15s ease infinite;
-  height: 100%;
-  width: 100%;
-} */
-
- /* @keyframes gradient {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}  */
+@import url("https://icono-49d6.kxcdn.com/icono.min.css");
 .buttonuser {
   left: 200px;
+}
+.icono-home{
+ color:green;
+ top: 80px;
 }
 
 .inputDiv {
@@ -135,7 +118,7 @@ export default {
 }
 
 .form {
-  /* background-color: #15172b; */
+  background-color:  rgba(0, 0, 0, 0.856);
   /* border-radius: 20px; */
   box-sizing: border-box;
   height: 75vh;
@@ -149,23 +132,26 @@ export default {
   border-radius: 15px;
   border: 3px solid rgb(245, 244, 244);
 
-  background-color: rgb(245, 244, 244);
+  /* background-color: rgb(245, 244, 244); */
 }
 
+
 .title {
-  color: #97e2f0;
+  color: #4CAF50;
   font-family: sans-serif;
   font-size: 36px;
   font-weight: 600;
   margin-top: 30px;
+  text-align: center;
 }
 
 .subtitle {
-  color: black;
+  color: rgb(145, 139, 139);
   font-family: sans-serif;
   font-size: 16px;
   font-weight: 600;
   margin-top: 10px;
+  text-align: center;
 }
 
 .input-container {
@@ -183,8 +169,6 @@ export default {
 }
 
 .input {
-  /* background-color: #303245; */
-  /* border-radius: 12px; */
   border: 0;
   box-sizing: border-box;
   color: #eee;
@@ -243,14 +227,14 @@ export default {
 }
 
 .input:focus ~ .placeholder {
-  color: #ec5790;
+  color: #4CAF50;
 }
 
 .submit {
   position: absolute;
   width: 300px;
   height: 50px;
-  background-color: #97e2f0;
+  background-color: #4CAF50;
   padding: 15px 0;
   font-size: 18px;
   font-weight: 600;
