@@ -95,7 +95,7 @@ alert(x)
 };
 </script>
 
-<style scoped>
+<style >
 .welcomepro {
   position: relative;
   display: block;

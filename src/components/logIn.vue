@@ -23,7 +23,7 @@
     <router-link to="/home">
       <button @click="login()" class="log-but">Login</button>
     </router-link>
-    <router-view></router-view>
+    
   </div>
   
 </template>
@@ -64,12 +64,13 @@ export default {
 </script>
 
 <style scoped>
-* {
-  width: 100%;
-  height: 100%;
-  margin: 0;
+  * {
   
-}
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    
+  }
 /* this style is for the position of the page */
 #app {
   /* background-size: cover; */
@@ -133,6 +134,7 @@ export default {
   border-radius: 15px;
   border-color: white;
   outline: none;
+  background-color: white;
 }
 ::placeholder {
   color: black;

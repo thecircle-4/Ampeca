@@ -1,5 +1,6 @@
 <template>
-    <div id="container-signup">
+<div >
+  <div id="container-signup">
          <div class="logo-img"> 
      <img src="../assests/img.png.png" id="img" >
     </div>
@@ -43,6 +44,8 @@
     <router-link to="/"> <button @click="signup()" id="signup">signup</button> </router-link>
     </div>
     
+</div>
+  
 </template>
 
 
@@ -74,7 +77,17 @@ export default {
 
 }
 </script>
-<style scoped>
+<style >
+* {
+ 
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  
+}
+/* this style is for the position of the page */
+#app {
+}
 #container-signup{
   position: absolute;
   width: 450px;

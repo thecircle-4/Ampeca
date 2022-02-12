@@ -1,45 +1,40 @@
 <template>
-  <div class="home" >
-    <div id="nav">
-      <nav>
-        <a href="/home" id="logo">AMPECA</a>
-        <input type="text" placeholder="Search for songs,playlist,artists,lyrics ..." id="search">
-        <a @click="ToProfile" id="profile">Profile</a>
-      </nav>
-    </div>
-    <div class="side">
-      <nav>
-        <a href="#" id="play">My librery</a>
-      </nav>
-    </div>
+<div id="home">
+<div class="nav">
+  <nav class="nav-bar">
+     <h3 id="text"> Ampeca</h3>
+     <input type="text" placeholder="Search for songs,playlist,artists,lyrics ..." id="search">
+     <a @click="ToProfile" class="profile">Profile</a>
+     <a class="profile" id="play">My Library</a>
+    </nav>
+     
+</div>
     <div id="waveform">
       <p id="explore">Explore</p>
-      <div v-for ="product in Data" :key="product.id"> 
+      <div>
+        
+      </div>
+      <div class="glass" v-for ="product in Data" :key="product.id"> 
+        
          <!-- <p> https://archive.org/embed/ {{product.src}}</p> -->
-        <p>{{product.Name}} </p> 
-        <button @click="AddToPlaylist(product.id)" class="md-icon-button md-accent"><font-awesome-icon icon="fa-solid fa-heart" />add</button>
+        <!-- <p>{{product.Name}} </p>  -->
+        <button @click="AddToPlaylist(product.id)" class="icon" ><i class="fa fa-heart" style="font-size:36px;"></i></button>
         <img id="image" :src='product.Cover' alt="">
-        <div class="overlay">
-            <a href="#" class="icon" title="User Profile">
-            <i class="fa fa-play"></i>
-            </a>
-            </div>
+       
         <audio controls id="audio" class="audio1"  >
         <source  :src='product.src' type="audio/ogg">
-             Your browser does not support the audio tag.
+          
         </audio>
         <!-- <div>{{product.src}}</div> -->
       </div> 
      </div>
-
-   
-  </div>
+</div>
 </template>
+
 <script>
 import axios from "axios";
 
 export default {
-  names: 'IconButtons',
   name: "App",
   components: {},
   data() {
@@ -89,121 +84,86 @@ audio.currentTime = 40;
 </script>
 
 
+<style scoped >
 
-<style scoped>
-
-
-.home{
-position:relative;
-background-color: #1b1c1d;
-right: 7px;
-top: -8px;
+#home{
+  background-color: #1b1c1d;
+ height: auto;
+ 
+ 
 }
-#nav{
-position: relative ;
-height: 70px;
-width:1480px ;
-background-color: #2b2d2f;
+.icon{
+  position: relative;
+  width: 50px;
+  height: 50px;
+  top: 70px;
+  border-radius: 10px;
+  color: red;
+  
 }
-.side{
-position: relative ;
-width: 180px;
-height: 2100px;
-background-color: #2b2d2f;
+.nav{
+  background-color: #2b2d2f;
+  width:100%;
+  height: 10%;
+}
+#text{
+  font-size: 40px ;
+  position: relative;
+  color:rgb(30, 209, 185);
+  top: 20px;
+  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
 }
 
 #search{
   position: relative;
   width: 300px;
   height: 40px;
-  left: 300px;
-  top: 10px;
+  left: 500px;
+  top: -30px;
   font-size: 15px;
   border-radius: 30px;
   background-color: #e5e7ea;
 }
-  
-#logo{
+
+
+.profile{
   position: relative;
-  
-  text-decoration: none;
-  font-family: Arial, Helvetica, sans-serif;
+  left: 1100px;
+  top: -20px;
   font-size: 30px;
-  color: white;
-  top: 20px;
-  
-}
-
-#image{
-  
-width: 250px;
-height: 300px;
-border-radius: 10px;
-
+  color: #dfdfdf;
 }
 #waveform{
-     position: absolute;
+  position: relative;
      display:grid;
-     grid-template-columns: repeat(3, 0.2fr);
-     grid-gap: 10px;
-     grid-auto-rows: minmax(50px, auto);  
-     left: 300px;
-     top: 100px;
+     grid-template-columns: repeat(4, 0.2fr);
+     grid-gap:35px;
+     grid-auto-rows: minmax(300px, 20px);  
+     left: 200px;
+     top: 20px;
+    
 }
-#profile{
-  position: absolute;
-  left: 1350px;
-  top: 20px;
-  font-size: 20px;
-  color: #dfdfdf;
+#audio{
+  position: relative;
+  bottom: 302px;
+ 
 }
-#play{
- position: relative;
+#image{
+  border-radius: 30px;
   
-  text-decoration: none;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 20px;
-  color: #dfdfdf;
-  top: 120px;
-  left: 30px;
 }
 #explore{
   position: relative;
   color: #dfdfdf;
   font-size: 50px;
-  left:-85px;
+  left:10px;
 
 }
-#audio{
-  position: relative;
-  width: 50px;
-}
-.overlay {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 100%;
-  width: 100%;
-  opacity: 0;
-  transition: .3s ease;
-  background-color: red;
-}
-.container:hover .overlay {
-  opacity: 1;
-}
-.icon {
-  color: white;
-  font-size: 100px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%);
-  text-align: center;
-}
-.fa-user:hover {
-  color: #eee;
+#play{
+    position: relative;
+  left:-100px ;
+  top: -20px;
+  font-size: 30px;
+  color: #dfdfdf;
 }
 </style>
