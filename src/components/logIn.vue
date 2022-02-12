@@ -53,7 +53,7 @@ export default {
         })
         .catch(err => {
           this.$router.push({ name: "login", query: { redirect: "/login" } });
-
+        alert("User Name Or Password Incorrect")
           console.log(err, "ghalet login");
         });
     }

@@ -65,7 +65,7 @@ export default {
         .then(response => {
           console.log(x);
           console.log(response);
-          
+          alert("Your Profile Updated successfully")
         });
     },
      ToHome: function() {
