@@ -1,5 +1,6 @@
 var router = require("express").Router();
 const controllers = require("../controllers/controllers");
+router.get("/get",controllers.GetAllSong)
 
 router.post("/register", controllers.register);
 router.post("/getuser", controllers.getuser);

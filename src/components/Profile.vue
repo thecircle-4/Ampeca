@@ -46,7 +46,7 @@
 
   
 
-<script>
+<script scoped>
 import axios from "axios";
 export default {
   data() {
@@ -95,7 +95,7 @@ alert(x)
 };
 </script>
 
-<style scoped>
+<style >
 .welcomepro {
   position: relative;
   display: block;

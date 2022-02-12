@@ -276,6 +276,7 @@ module.exports = {
   updateplname,
   PostSongs,
   register,
+  GetAllSong,
   login,
   GetAllSong,
   getuser,
