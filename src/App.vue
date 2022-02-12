@@ -22,13 +22,13 @@ export default {
 </script>
 
 <style scoped>
-*{
+/* *{
   width: 100%;
   height: 100%;
   margin: 0;
-}
+} */
 /* this style is for the position of the page */
-#app{
+/* #app{
   background-size: cover;
   min-width: 100%;
   min-height: 100%;
@@ -36,9 +36,9 @@ export default {
   background-size: 400% 400%;
   animation: gradient 15s ease infinite;
 
-} 
+}  */
 
- @keyframes gradient {
+ /* @keyframes gradient {
     0% {
         background-position: 0% 50%;
     }
@@ -48,7 +48,7 @@ export default {
     100% {
         background-position: 0% 50%;
     }
-} 
+}  */
 /* this style is for the gradient color for the background first page  */
 
 </style>
