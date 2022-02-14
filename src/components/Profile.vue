@@ -8,17 +8,17 @@
       <div class="title">Welcome</div>
       <div class="subtitle">Let's Edit your acount!</div>
       <div class="input-container ic1">
-        <input v-model="username" class="input" @change="someHandler" />
+        <input v-model="username" class="inputtt" @change="someHandler" />
         <div class="cut"></div>
         <label for="username" class="placeholder">User name</label>
       </div>
       <div class="input-container ic2">
-        <input v-model="email" class="input" @change="someHandler" />
+        <input v-model="email" class="inputtt" @change="someHandler" />
         <div class="cut"></div>
         <label for="email" class="placeholder">Email</label>
       </div>
       <div class="input-container ic2">
-        <input v-model="password" class="input" type="password" @change="someHandler" />
+        <input v-model="password" class="inputtt" type="password" @change="someHandler" />
         <div class="cut cut-short"></div>
         <label for="password" class="placeholder">password</label>
       </div>
@@ -65,7 +65,7 @@ export default {
         .then(response => {
           console.log(x);
           console.log(response);
-          alert("Your Profile Updated successfully")
+          
         });
     },
      ToHome: function() {
@@ -168,7 +168,7 @@ export default {
   margin-top: 30px;
 }
 
-.input {
+.inputtt {
   border: 0;
   box-sizing: border-box;
   color: #eee;
@@ -198,8 +198,8 @@ export default {
   width: 75px;
 }
 
-.input:focus ~ .cut,
-.input:not(:placeholder-shown) ~ .cut {
+.inputtt:focus ~ .cut,
+.inputtt:not(:placeholder-shown) ~ .cut {
   transform: translateY(8px);
 }
 
@@ -217,16 +217,16 @@ export default {
   font-size: 1em;
 }
 
-.input:focus ~ .placeholder,
-.input:not(:placeholder-shown) .placeholder {
+.inputtt:focus ~ .placeholder,
+.inputtt:not(:placeholder-shown) .placeholder {
   transform: translateY(-30px) translateX(10px) scale(0.75);
 }
 
-.input:not(:placeholder-shown) ~ .placeholder {
+.inputtt:not(:placeholder-shown) ~ .placeholder {
   color: #808097;
 }
 
-.input:focus ~ .placeholder {
+.inputtt:focus ~ .placeholder {
   color: #4CAF50;
 }
 
