@@ -51,11 +51,12 @@ export default {
         .post("http://localhost:3000/api/login", data)
         .then(( {data} ) => {
           console.log(data.user["id"]);
+          alert("login successful");
           this.$router.push({ name: "Home", query: { redirect: "/Home" } , params:{id:data.user["id"]}});
         })
         .catch(err => {
           this.$router.push({ name: "login", query: { redirect: "/login" } });
-
+        alert("User Name Or Password Incorrect")
           console.log(err, "ghalet login");
         });
     }
@@ -100,7 +101,7 @@ export default {
   border-radius: 15px;
   border: 3px solid rgb(245, 244, 244);
   bottom: 200px;
-  left: 580px;
+  left: 480px;
   background-color: rgb(245, 244, 244);
 }
 /* this is the containe the inputs of the login  */
@@ -116,8 +117,8 @@ export default {
   font-weight: 600;
   border-radius: 25px;
   border-color: #97e2f0;
-  top: 430px;
-  left: 640px;
+  top: 340px;
+  left: 550px;
 }
 .log-but:hover {
   box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24),

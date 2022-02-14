@@ -3,6 +3,7 @@ import Login from '../components/Login.vue';
 import Signup from '../components/Signup.vue';
 import Home from '../components/Home.vue';
 import Profile from '../components/Profile.vue'
+import ContactUs from '../components/ContactUs.vue'
 
 const routes =[
     {
@@ -24,6 +25,11 @@ const routes =[
         path:'/profile/:id',
         name:'profile',
         component: Profile
+    },
+    {
+        path:'/ContactUs',
+        name:'ContactUs',
+        component: ContactUs
     },
 ]
 

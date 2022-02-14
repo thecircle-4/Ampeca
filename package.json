@@ -10,13 +10,16 @@
   },
   "dependencies": {
     "@dongido/vue-viaudio": "^0.3.5",
+    "@emailjs/browser": "^3.4.0",
     "axios": "^0.25.0",
     "bcrypt": "^5.0.1",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.1",
+    "chokidar": "^3.5.3",
     "cookie-parser": "^1.4.6",
     "core-js": "^3.6.5",
     "cors": "^2.8.5",
+    "emailjs-com": "^3.2.0",
     "express": "^4.17.2",
     "express-async-handler": "^1.2.0",
     "express-session": "^1.17.2",
@@ -28,7 +31,8 @@
     "uuid": "^8.3.2",
     "vue": "^3.2.29",
     "vue-input-autowidth": "^1.0.11",
-    "vue-router": "^4.0.12"
+    "vue-router": "^4.0.12",
+    "vue3-simple-alert": "^1.0.4"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^2.0.0",

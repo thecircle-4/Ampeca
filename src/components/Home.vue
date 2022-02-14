@@ -39,20 +39,27 @@ export default {
   components: {},
   data() {
     return {
+      search: "",
       message: "Hello World ",
-      Data: {},
-      song : '/media/PoloG.369417b3.mp3'
+      Data: [],
+      song: "/media/PoloG.369417b3.mp3"
     };
   },
+    computed:{
+      filtredData:function(){
+        return this.Data.filter((item)=>{
+          return item.Name.toLowerCase().match(this.search.toLowerCase());
+        })
+      }
+  },
   mounted() {
-    axios.get("http://localhost:3000/api/get").then((res) => {
+    axios.get("http://localhost:3000/api/get").then(res => {
       this.Data = res.data;
       console.log(res.data);
     });
-    
   },
   methods: {
-    x: function () {
+    x: function() {
       console.log("éd");
     },
     AddToPlaylist: function(event){
@@ -84,7 +91,7 @@ audio.currentTime = 40;
 </script>
 
 
-<style scoped >
+<style  >
 
 #home{
   background-color: #1b1c1d;
@@ -134,7 +141,7 @@ audio.currentTime = 40;
   color: #dfdfdf;
 }
 #waveform{
-  position: relative;
+    
      display:grid;
      grid-template-columns: repeat(4, 0.2fr);
      grid-gap:35px;

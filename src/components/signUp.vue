@@ -1,5 +1,5 @@
 <template>
-<div >
+<div class="big" id="app">
   <div id="container-signup">
          <div class="logo-img"> 
      <img src="../assests/img.png.png" id="img" >
@@ -77,25 +77,45 @@ export default {
 
 }
 </script>
-<style >
-* {
+<style scoped>
+/* * {
  
   width: 100%;
   height: 100%;
   margin: 0;
   
+} */
+
+#app {
+  /* background-size: cover; */
+  min-width: 100%;
+  min-height: 100%;
+  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+  background-size: 400% 400%;
+  animation: gradient 15s ease infinite;
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 /* this style is for the position of the page */
-#app {
-}
+
 #container-signup{
   position: absolute;
   width: 450px;
   height:400px;
   border-radius: 15px;
   border: 3px solid  rgb(245, 244, 244)  ;
-  bottom:200px;
-  left: 580px;
+  bottom:100px;
+  left: 400px;
   background-color: rgb(245, 244, 244);
 }
 #signup{
